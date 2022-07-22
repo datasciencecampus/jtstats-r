@@ -1,6 +1,6 @@
 ## code to prepare `jts_tables` dataset goes here
 library(tidyverse)
-jts_tables = readr::read_csv("../accessibility_table_csv.csv")
+jts_tables = readr::read_csv("accessibility_table_csv.csv")
 jts_tables = jts_tables %>%
   mutate(table_type_code = tolower(str_sub(string = table_code, start = 1, end = 5))) %>%
   mutate(sheet = gsub(pattern = ".csv", replacement = "", x = csv_file)) %>%
@@ -22,8 +22,11 @@ jts_table_types = tibble(table_type, table_type_code)
 jts_tables = left_join(jts_tables, jts_table_types)
 jts_tables = jts_tables %>%
   select(table_type, table_title, table_code, sheet, csv_file, table_url)
-readr::write_csv(jts_tables, "../jts_tables.csv")
-readr::write_csv(jts_table_types, "../jts_table_types.csv")
+readr::write_csv(jts_tables, "jts_tables.csv")
+readr::write_csv(jts_table_types, "jts_table_types.csv")
+usethis::use_build_ignore("jts_tables.csv")
+usethis::use_build_ignore("jts_table_types.csv")
+usethis::use_build_ignore("accessibility_table_csv.csv")
 
 jts_params = list(
   type = table_type_code,

@@ -42,7 +42,7 @@ lookup_jts_table()
 lookup_jts_table(purpose = "employment", sheet = 2017)
 jdf = lookup_jts_table(purpose = "employment", sheet = 2019)
 jdf$table_url
-browseURL(jdf$table_url)
+# browseURL(jdf$table_url)
 lookup_jts_table(type = "jts01", purpose = "rural")
 lookup_jts_table(purpose = "gp", sheet = "meta")
 lookup_jts_table(type = "jts05", purpose = "employment", sheet = "meta")

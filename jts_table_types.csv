@@ -1,0 +1,8 @@
+table_type,table_type_code
+Journey times to key services (JTS01),jts01
+User access to key services by journey time (JTS02),jts02
+Number of key services by journey time (JTS03),jts03
+Journey times to key services by local authority (JTS04),jts04
+Journey times to key services by lower super output area (JTS05),jts05
+Journey times connectivity (JTS09),jts09
+Ad hoc journey times analysis (JTS10),jts10

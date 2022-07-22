@@ -1,2 +1,5 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^jts_table_types\.csv$
+^accessibility_table_csv\.csv$
+^jts_tables\.csv$
