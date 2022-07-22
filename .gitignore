@@ -21,3 +21,4 @@ data/*
 .mypy*
 output/*
 .Rproj.user/
+.Rhistory
