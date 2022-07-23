@@ -25,7 +25,12 @@
 #'   Can be a year, with 2014 2015 2016 2017 or 2019 (the default), or a
 #'   text string to identify a particular sheet (e.g. "meta" to get metadata tables)
 #' @param code If you already know the JTS table code you're after
-#' @param file_name If you know the unique file name of the JTS table you're after
+#' @param file_name If you know the unique file name of the JTS table you're after.
+#'   This is provided as a character string with two components: the
+#'   JTS table code such as jts0102 and the sheet such as the year or metadata
+#'   within the JTS spreadsheet. `"jts0102-2014"`, for example,
+#'   refers to the sheet 2014 in the JTS spreadsheet JTS0102
+#'   ()
 #' @param base_url Where to get the data from
 #' @export
 #' @examples
@@ -56,7 +61,7 @@ get_jts = function(
     purpose = "",
     sheet = "2019",
     code = "",
-    file_name = NULL,
+    file_name = "",
     base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
     ) {
   # Could add other acceptable values:
@@ -64,12 +69,7 @@ get_jts = function(
   if(!valid_sheet) {
     warning("May be invalid sheet (should be a year or text string matching a sheet")
   }
-  if(!is.null(file_name)) {
-    match_file = grepl(file_name, x = jts_tables$csv_file, ignore.case = TRUE)
-    jts_sel = jts_tables[match_file, ]
-  } else {
-    jts_sel = lookup_jts_table(type, purpose, sheet, code)
-  }
+  jts_sel = lookup_jts_table(type, purpose, sheet, code, file_name)
   n_sheets = nrow(jts_sel)
   if(n_sheets != 1) {
     stop("Multiple matching sheets, try different inputs!")
@@ -96,8 +96,13 @@ get_jts = function(
 #' lookup_jts_table(type = "jts01", purpose = "rural")
 #' lookup_jts_table(purpose = "gp", sheet = "meta")
 #' lookup_jts_table(type = "jts05", purpose = "employment", sheet = "meta")
-lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "") {
+#' lookup_jts_table(file_name = "jts0102-2014")
+lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "", file_name = "") {
   tables_selected = jts_tables
+  if(file_name != "") {
+    match_file = grepl(file_name, x = tables_selected$csv_file, ignore.case = TRUE)
+    tables_selected = tables_selected[match_file, ]
+  }
   if(type != "") {
     match_type = grepl(type, x = tables_selected$table_type, ignore.case = TRUE)
     tables_selected = tables_selected[match_type, ]

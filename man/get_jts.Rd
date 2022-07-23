@@ -9,7 +9,7 @@ get_jts(
   purpose = "",
   sheet = "2019",
   code = "",
-  file_name = NULL,
+  file_name = "",
   base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
 )
 }
@@ -43,7 +43,12 @@ text string to identify a particular sheet (e.g. "meta" to get metadata tables)}
 
 \item{code}{If you already know the JTS table code you're after}
 
-\item{file_name}{If you know the unique file name of the JTS table you're after}
+\item{file_name}{If you know the unique file name of the JTS table you're after.
+This is provided as a character string with two components: the
+JTS table code such as jts0102 and the sheet such as the year or metadata
+within the JTS spreadsheet. \code{"jts0102-2014"}, for example,
+refers to the sheet 2014 in the JTS spreadsheet JTS0102
+()}
 
 \item{base_url}{Where to get the data from}
 }

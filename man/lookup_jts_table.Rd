@@ -4,7 +4,13 @@
 \alias{lookup_jts_table}
 \title{Find specific jts table and sheet}
 \usage{
-lookup_jts_table(type = "", purpose = "", sheet = "", code = "")
+lookup_jts_table(
+  type = "",
+  purpose = "",
+  sheet = "",
+  code = "",
+  file_name = ""
+)
 }
 \arguments{
 \item{type}{What type of JTS data is of interest? One of
@@ -35,6 +41,13 @@ Can be a year, with 2014 2015 2016 2017 or 2019 (the default), or a
 text string to identify a particular sheet (e.g. "meta" to get metadata tables)}
 
 \item{code}{If you already know the JTS table code you're after}
+
+\item{file_name}{If you know the unique file name of the JTS table you're after.
+This is provided as a character string with two components: the
+JTS table code such as jts0102 and the sheet such as the year or metadata
+within the JTS spreadsheet. \code{"jts0102-2014"}, for example,
+refers to the sheet 2014 in the JTS spreadsheet JTS0102
+()}
 }
 \description{
 Find specific jts table and sheet
@@ -48,4 +61,5 @@ jdf$table_url
 lookup_jts_table(type = "jts01", purpose = "rural")
 lookup_jts_table(purpose = "gp", sheet = "meta")
 lookup_jts_table(type = "jts05", purpose = "employment", sheet = "meta")
+lookup_jts_table(file_name = "jts0102-2014")
 }
