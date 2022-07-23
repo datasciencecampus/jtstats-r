@@ -66,35 +66,17 @@ get_jts = function(
   }
   if(!is.null(file_name)) {
     match_file = grepl(file_name, x = jts_tables$csv_file, ignore.case = TRUE)
-    jts_tables_selected = jts_tables[match_file, ]
+    jts_sel = jts_tables[match_file, ]
   } else {
-    jts_tables_selected = lookup_jts_table(type, purpose, sheet, code)
+    jts_sel = lookup_jts_table(type, purpose, sheet, code)
   }
-  n_sheets = nrow(jts_tables_selected)
+  n_sheets = nrow(jts_sel)
   if(n_sheets != 1) {
     stop("Multiple matching sheets, try different inputs!")
   }
-  download_url = paste0(base_url, jts_tables_selected$csv_file)
+  download_url = paste0(base_url, jts_sel$csv_file)
   # download_url = "https://github.com/ITSLeeds/jts/releases/download/2/jts0101-JTS0101.csv"
-  if(grepl(pattern = "01|02|03", x = type)) {
-    skip = 7
-    if(grepl(pattern = "REVISED", x = sheet)) {
-      skip = 9
-    }
-  } else if(grepl(pattern = "04|05|09|10", x = type)) {
-    skip = 6
-    if(grepl(pattern = "meta", x = sheet, ignore.case = TRUE)) {
-      skip = 30
-    }
-    # selected file is GPs
-    if(grepl(pattern = "jts0405", x = jts_tables_selected$csv_file, ignore.case = TRUE)) {
-      skip = 7
-    }
-  } else if(grepl(pattern = "01|02|03", x = type)) {
-    skip = 7
-  } else {
-    skip = 0
-  }
+  skip = skip_n(jts_sel$table_type, jts_sel$sheet, jts_sel$csv_file)
   suppressMessages({
     jts_data = readr::read_csv(download_url, skip = skip)
   })
@@ -143,6 +125,8 @@ lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "") {
   tables_selected
 }
 
+
+
 clean_jts = function(d) {
   # Remove faulty names:
   # reg_text = "\\.\\.\\.[1-8]|Year"
@@ -159,8 +143,8 @@ clean_jts = function(d) {
 #' get_jts_metadata(type = "jts05", purpose = "employment")
 get_jts_metadata = function(type = "jts05", purpose = "employment", sheet = "meta",
                             base_url = "https://github.com/ITSLeeds/jts/releases/download/2/") {
-  jts_tables_selected = lookup_jts_table(type = type, purpose = purpose, sheet = sheet)
-  download_url = paste0(base_url, jts_tables_selected$csv_file)
+  jts_sel = lookup_jts_table(type = type, purpose = purpose, sheet = sheet)
+  download_url = paste0(base_url, jts_sel$csv_file)
   # download_url = "https://github.com/ITSLeeds/jts/releases/download/2/jts0101-JTS0101.csv"
   metadata_raw = readr::read_csv(download_url, skip = 33)
   metadata = metadata_raw[c("Field", "Alternate Name", "Description", "Parameter value")]
@@ -199,3 +183,26 @@ utils::globalVariables(c("jts_tables", "jts_params"))
 #' @examples
 #' jts_params
 "jts_params"
+
+skip_n = function(type, sheet, csv_file) {
+  if(grepl(pattern = "01|02|03", x = type)) {
+    skip = 7
+    if(grepl(pattern = "REVISED", x = sheet)) {
+      skip = 9
+    }
+  } else if(grepl(pattern = "04|05|09|10", x = type)) {
+    skip = 6
+    if(grepl(pattern = "meta", x = sheet, ignore.case = TRUE)) {
+      skip = 30
+    }
+    # selected file is GPs
+    if(grepl(pattern = "jts0405", x = csv_file, ignore.case = TRUE)) {
+      skip = 7
+    }
+  } else if(grepl(pattern = "01|02|03", x = type)) {
+    skip = 7
+  } else {
+    skip = 0
+  }
+  skip
+}
