@@ -5,3 +5,10 @@
 ^jts_tables\.csv$
 ^\.github$
 ^README\.Rmd$
+^CODE_OF_CONDUCT\.md$
+^CONTRIBUTING\.md$
+^LICENSE\.md$
+^app\.R$
+^data-raw$
+^packages$
+^test$

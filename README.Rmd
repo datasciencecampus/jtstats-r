@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of jtstats is to ...
+The goal of jtstats is to enable easy import of the Department for Transport's Journey Times Statistics (JTS).
 
 ## Installation
 
@@ -33,13 +33,50 @@ You can install the development version of jtstats from [GitHub](https://github.
 remotes::install_github("datasciencecampus/jtstats-r")
 ```
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+Load the package as follows:
+
+```{r}
+library(jtstats)
+```
+
+For the purposes of this README we will also load the tidyverse metapackage:
+
+```{r tidyerse, message=FALSE}
+library(tidyverse)
+```
+
+
+To see what tables are available you can browse [the JTS website on gov.uk](https://www.gov.uk/government/statistical-data-sets/journey-time-statistics-data-tables-jts).
+Alternatively, you can check the datasets from within R:
 
 ```{r example}
-library(jtstats)
-## basic example code
+head(jts_tables)
+```
+
+As the above output shows, there are `r nrow(jts_tables)` separate tables that constitute the JTS dataset.
+JTS tables are divided into different table types:
+
+```{r}
+unique(jts_tables$table_type)
+```
+
+You can search for specific JTS tables with `lookup_jts_table()`:
+
+```{r}
+jts04_gps = lookup_jts_table(type = "jts04", purpose = "GPs")
+jts04_gps$table_title
+jts04_gps$sheet
+```
+
+Imagine you're interested in how average travel time to GP services changed between 2017 and 2019.
+You can do that as follows:
+
+```{r}
+jts_las_gps_2017 = get_jts(type = "jts04", purpose = "GPs", sheet = 2017)
+jts_las_gps_2019 = get_jts(type = "jts04", purpose = "GPs", sheet = 2019)
+names(jts_las_gps_2017)
 ```
 
 
