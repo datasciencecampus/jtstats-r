@@ -30,7 +30,8 @@
 #'   JTS table code such as jts0102 and the sheet such as the year or metadata
 #'   within the JTS spreadsheet. `"jts0102-2014"`, for example,
 #'   refers to the sheet 2014 in the JTS spreadsheet JTS0102
-#'   ()
+#'   (Average minimum travel time to reach the nearest key services by mode of
+#'   travel, rural and urban areas: England).
 #' @param base_url Where to get the data from
 #' @export
 #' @examples
@@ -96,12 +97,14 @@ get_jts = function(
 #' lookup_jts_table(type = "jts01", purpose = "rural")
 #' lookup_jts_table(purpose = "gp", sheet = "meta")
 #' lookup_jts_table(type = "jts05", purpose = "employment", sheet = "meta")
-#' lookup_jts_table(file_name = "jts0102-2014")
+#' jts_0102_2014 = lookup_jts_table(file_name = "jts0102-2014")
+#' jts_0102_2014$table_title
 lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "", file_name = "") {
   tables_selected = jts_tables
   if(file_name != "") {
     match_file = grepl(file_name, x = tables_selected$csv_file, ignore.case = TRUE)
     tables_selected = tables_selected[match_file, ]
+    return(tables_selected)
   }
   if(type != "") {
     match_type = grepl(type, x = tables_selected$table_type, ignore.case = TRUE)

@@ -48,7 +48,8 @@ This is provided as a character string with two components: the
 JTS table code such as jts0102 and the sheet such as the year or metadata
 within the JTS spreadsheet. \code{"jts0102-2014"}, for example,
 refers to the sheet 2014 in the JTS spreadsheet JTS0102
-()}
+(Average minimum travel time to reach the nearest key services by mode of
+travel, rural and urban areas: England).}
 
 \item{base_url}{Where to get the data from}
 }
