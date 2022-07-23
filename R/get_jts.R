@@ -33,18 +33,18 @@
 #'   (Average minimum travel time to reach the nearest key services by mode of
 #'   travel, rural and urban areas: England).
 #' @param base_url Where to get the data from
+#' @param geo Return geographic data, as sf objects? FALSE by default.
 #' @export
 #' @examples
 #' employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
 #' dim(employment_2017)
 #' names(employment_2017)
-#' nrow(employment_2017) # 32844
 #' employment_2017[1:3, 1:8]
 #' employment_metadata = get_jts(type = "jts04", purpose = "employment", sheet = "meta")
 #' # View(employment_metadata)
 #' primary_2017 = get_jts(type = "jts04", purpose = "prim", sheet = 2017)
 #' # View(employment_2017) # View results
-#' employment_2017_lsoa = get_jts(type = "jts05", purpose = "employment", sheet = 2017)
+#' # employment_2017_lsoa = get_jts(type = "jts05", purpose = "employment", sheet = 2017)
 #' # get_jts(sheet = "0") # Error message
 #' gps_2017 = get_jts(purpose = "gp", sheet = 2017)
 #' # gps_2017 = get_jts(purpose = "gp", sheet = 2017,
@@ -57,13 +57,23 @@
 #' # Match based on file name:
 #' head(jts_tables$csv_file)
 #' get_jts(file_name = "jts0102-2014")
+#'
+#' # Get geo data
+#' geo = get_jts(type = "jts04", purpose = "employment", sheet = 2017, geo = TRUE)
+#' class(geo)
+#' plot(geo["100EmpCyc15pct"])
+#' # LSOA data, commented because it's slow
+#' # lsoa_geo = get_jts(type = "jts05", purpose = "employment", sheet = 2017, geo = TRUE)
+#' # class(lsoa_geo)
+#' # plot(lsoa_geo[1:99, 12:15])
 get_jts = function(
     type = "jts04",
     purpose = "",
     sheet = "2019",
     code = "",
     file_name = "",
-    base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
+    base_url = "https://github.com/ITSLeeds/jts/releases/download/2/",
+    geo = FALSE
     ) {
   # Could add other acceptable values:
   valid_sheet = as.character(sheet) %in% c(as.character(jts_params$year), "meta")
@@ -81,7 +91,19 @@ get_jts = function(
   suppressMessages({
     jts_data = readr::read_csv(download_url, skip = skip)
   })
-  clean_jts(jts_data)
+  res = clean_jts(jts_data)
+  if(geo) {
+    if("LA_Code" %in% names(res) && nrow(res) < 500){
+      boundaries = get_boundaries(type = "la")
+      geonm = names(boundaries)[1]
+      res = dplyr::inner_join(boundaries, res, by = c("lad11cd" = "LA_Code"))
+    } else if ("LSOA_code" %in% names(res)){
+      boundaries = get_boundaries(type = "lsoa")
+      geonm = names(boundaries)[1]
+      res = dplyr::inner_join(boundaries, res, by = c("LSOA11CD" = "LSOA_code"))
+    }
+  }
+  res
 }
 
 #' Find specific jts table and sheet

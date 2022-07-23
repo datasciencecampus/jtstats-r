@@ -10,7 +10,8 @@ get_jts(
   sheet = "2019",
   code = "",
   file_name = "",
-  base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
+  base_url = "https://github.com/ITSLeeds/jts/releases/download/2/",
+  geo = FALSE
 )
 }
 \arguments{
@@ -52,6 +53,8 @@ refers to the sheet 2014 in the JTS spreadsheet JTS0102
 travel, rural and urban areas: England).}
 
 \item{base_url}{Where to get the data from}
+
+\item{geo}{Return geographic data, as sf objects? FALSE by default.}
 }
 \description{
 Get JTS data
@@ -60,13 +63,12 @@ Get JTS data
 employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
 dim(employment_2017)
 names(employment_2017)
-nrow(employment_2017) # 32844
 employment_2017[1:3, 1:8]
 employment_metadata = get_jts(type = "jts04", purpose = "employment", sheet = "meta")
 # View(employment_metadata)
 primary_2017 = get_jts(type = "jts04", purpose = "prim", sheet = 2017)
 # View(employment_2017) # View results
-employment_2017_lsoa = get_jts(type = "jts05", purpose = "employment", sheet = 2017)
+# employment_2017_lsoa = get_jts(type = "jts05", purpose = "employment", sheet = 2017)
 # get_jts(sheet = "0") # Error message
 gps_2017 = get_jts(purpose = "gp", sheet = 2017)
 # gps_2017 = get_jts(purpose = "gp", sheet = 2017,
@@ -79,4 +81,13 @@ jts_01_rural_2015 = get_jts(type = "jts01", purpose = "rural", sheet = "2015")
 # Match based on file name:
 head(jts_tables$csv_file)
 get_jts(file_name = "jts0102-2014")
+
+# Get geo data
+geo = get_jts(type = "jts04", purpose = "employment", sheet = 2017, geo = TRUE)
+class(geo)
+plot(geo["100EmpCyc15pct"])
+# LSOA data, commented because it's slow
+# lsoa_geo = get_jts(type = "jts05", purpose = "employment", sheet = 2017, geo = TRUE)
+# class(lsoa_geo)
+# plot(lsoa_geo[1:99, 12:15])
 }
