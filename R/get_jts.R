@@ -24,14 +24,16 @@
 #' @param sheet The sheet within the JTS dataset for which data is required.
 #'   Can be a year, with 2014 2015 2016 2017 or 2019 (the default), or a
 #'   text string to identify a particular sheet (e.g. "meta" to get metadata tables)
-#' @param table_code If you already know the JTS table code you're after
+#' @param code If you already know the JTS table code you're after
+#' @param file_name If you know the unique file name of the JTS table you're after
 #' @param base_url Where to get the data from
 #' @export
 #' @examples
 #' employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
+#' dim(employment_2017)
 #' names(employment_2017)
 #' nrow(employment_2017) # 32844
-#' employment_2017
+#' employment_2017[1:3, 1:8]
 #' employment_metadata = get_jts(type = "jts04", purpose = "employment", sheet = "meta")
 #' # View(employment_metadata)
 #' primary_2017 = get_jts(type = "jts04", purpose = "prim", sheet = 2017)
@@ -45,11 +47,16 @@
 #' # get_jts(type = "jts01", sheet = "by mode") # asks for more info
 #' # get_jts(type = "jts01", sheet = "by mode of travel, local authority", purpose = "")
 #' jts_01_rural_2015 = get_jts(type = "jts01", purpose = "rural", sheet = "2015")
+#'
+#' # Match based on file name:
+#' head(jts_tables$csv_file)
+#' get_jts(file_name = "jts0102-2014")
 get_jts = function(
     type = "jts04",
     purpose = "",
     sheet = "2019",
-    table_code = NULL,
+    code = "",
+    file_name = NULL,
     base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
     ) {
   # Could add other acceptable values:
@@ -57,8 +64,11 @@ get_jts = function(
   if(!valid_sheet) {
     warning("May be invalid sheet (should be a year or text string matching a sheet")
   }
-  if(is.null(table_code)) {
-    jts_tables_selected = lookup_jts_table(type, purpose, sheet)
+  if(!is.null(file_name)) {
+    match_file = grepl(file_name, x = jts_tables$csv_file, ignore.case = TRUE)
+    jts_tables_selected = jts_tables[match_file, ]
+  } else {
+    jts_tables_selected = lookup_jts_table(type, purpose, sheet, code)
   }
   n_sheets = nrow(jts_tables_selected)
   if(n_sheets != 1) {
@@ -85,7 +95,6 @@ get_jts = function(
   } else {
     skip = 0
   }
-  # browser()
   suppressMessages({
     jts_data = readr::read_csv(download_url, skip = skip)
   })
@@ -105,24 +114,33 @@ get_jts = function(
 #' lookup_jts_table(type = "jts01", purpose = "rural")
 #' lookup_jts_table(purpose = "gp", sheet = "meta")
 #' lookup_jts_table(type = "jts05", purpose = "employment", sheet = "meta")
-lookup_jts_table = function(type = "", purpose = "", sheet = "") {
-  # browser()
-  match_type = grepl(type, x = jts_tables$table_type, ignore.case = TRUE)
-  tables_type = jts_tables[match_type, ]
-  message("Matching tables by type (", type, "):\n",
-          paste0(unique(tables_type$table_title), collapse = "\n"))
-
-  match_purposes = grepl(purpose, x = tables_type$table_title, ignore.case = TRUE)
-  tables_purpose = tables_type[match_purposes, ]
-  message("\nMatching tables by purpose (", type, "):\n",
-          paste0(unique(tables_purpose$table_title), collapse = "\n"))
-
-  match_sheet = grepl(sheet, x = tables_purpose$csv_file, ignore.case = TRUE)
-
-  tables_sheet = tables_purpose[match_sheet, ]
-  message("\nMatching tables by sheet (", type, ", ", purpose, ", ", sheet, "):\n",
-          paste0(unique(tables_sheet$csv_file), collapse = "\n"))
-  tables_sheet
+lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "") {
+  tables_selected = jts_tables
+  if(type != "") {
+    match_type = grepl(type, x = tables_selected$table_type, ignore.case = TRUE)
+    tables_selected = tables_selected[match_type, ]
+    message("Matching tables by type (", type, "):\n",
+            paste0(unique(tables_selected$table_title), collapse = "\n"))
+  }
+  if(purpose != "") {
+    match_purposes = grepl(purpose, x = tables_selected$table_title, ignore.case = TRUE)
+    tables_selected = tables_selected[match_purposes, ]
+    message("\nMatching tables by purpose (", type, "):\n",
+            paste0(unique(tables_selected$table_title), collapse = "\n"))
+  }
+  if(code != "") {
+    match_code = grepl(code, x = tables_selected$table_code, ignore.case = TRUE)
+    tables_selected = tables_selected[match_code, ]
+    message("\nMatching tables by code (", type, ", ", purpose, ", ", code, "):\n",
+            paste0(unique(tables_selected$table_code), collapse = "\n"))
+  }
+  if(sheet != "") {
+    match_sheet = grepl(sheet, x = tables_selected$csv_file, ignore.case = TRUE)
+    tables_selected = tables_selected[match_sheet, ]
+    message("\nMatching tables by sheet (", type, ", ", purpose, ", ", sheet, "):\n",
+            paste0(unique(tables_selected$csv_file), collapse = "\n"))
+    }
+  tables_selected
 }
 
 clean_jts = function(d) {
@@ -162,8 +180,6 @@ get_jts_metadata = function(type = "jts05", purpose = "employment", sheet = "met
 #   tables_purpose = tables_type[match_purposes, ]
 #   message("\nMatching tables by purpose (", type, "):\n",
 #           paste0(unique(tables_purpose$table_title), collapse = "\n"))
-#   # browser()
-#   # browseURL()
 # }
 
 

@@ -4,7 +4,7 @@
 \alias{lookup_jts_table}
 \title{Find specific jts table and sheet}
 \usage{
-lookup_jts_table(type = "", purpose = "", sheet = "")
+lookup_jts_table(type = "", purpose = "", sheet = "", code = "")
 }
 \arguments{
 \item{type}{What type of JTS data is of interest? One of
@@ -33,6 +33,8 @@ mode of travel, rural and urban areas: England.}
 \item{sheet}{The sheet within the JTS dataset for which data is required.
 Can be a year, with 2014 2015 2016 2017 or 2019 (the default), or a
 text string to identify a particular sheet (e.g. "meta" to get metadata tables)}
+
+\item{code}{If you already know the JTS table code you're after}
 }
 \description{
 Find specific jts table and sheet

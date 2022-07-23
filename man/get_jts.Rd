@@ -8,7 +8,8 @@ get_jts(
   type = "jts04",
   purpose = "",
   sheet = "2019",
-  table_code = NULL,
+  code = "",
+  file_name = NULL,
   base_url = "https://github.com/ITSLeeds/jts/releases/download/2/"
 )
 }
@@ -40,7 +41,9 @@ mode of travel, rural and urban areas: England.}
 Can be a year, with 2014 2015 2016 2017 or 2019 (the default), or a
 text string to identify a particular sheet (e.g. "meta" to get metadata tables)}
 
-\item{table_code}{If you already know the JTS table code you're after}
+\item{code}{If you already know the JTS table code you're after}
+
+\item{file_name}{If you know the unique file name of the JTS table you're after}
 
 \item{base_url}{Where to get the data from}
 }
@@ -49,9 +52,10 @@ Get JTS data
 }
 \examples{
 employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
+dim(employment_2017)
 names(employment_2017)
 nrow(employment_2017) # 32844
-employment_2017
+employment_2017[1:3, 1:8]
 employment_metadata = get_jts(type = "jts04", purpose = "employment", sheet = "meta")
 # View(employment_metadata)
 primary_2017 = get_jts(type = "jts04", purpose = "prim", sheet = 2017)
@@ -65,4 +69,8 @@ town = get_jts(purpose = 'town')
 # get_jts(type = "jts01", sheet = "by mode") # asks for more info
 # get_jts(type = "jts01", sheet = "by mode of travel, local authority", purpose = "")
 jts_01_rural_2015 = get_jts(type = "jts01", purpose = "rural", sheet = "2015")
+
+# Match based on file name:
+head(jts_tables$csv_file)
+get_jts(file_name = "jts0102-2014")
 }
