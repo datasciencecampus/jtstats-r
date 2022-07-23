@@ -39,6 +39,8 @@
 #' employment_2017_lsoa = get_jts(type = "jts05", purpose = "employment", sheet = 2017)
 #' # get_jts(sheet = "0") # Error message
 #' gps_2017 = get_jts(purpose = "gp", sheet = 2017)
+#' # gps_2017 = get_jts(purpose = "gp", sheet = 2017,
+#' #   base_url = "~/github/datasciencecampus/jtstats/raw_jts_data/jts_csv_files/")
 #' town = get_jts(purpose = 'town')
 #' # get_jts(type = "jts01", sheet = "by mode") # asks for more info
 #' # get_jts(type = "jts01", sheet = "by mode of travel, local authority", purpose = "")
@@ -74,11 +76,16 @@ get_jts = function(
     if(grepl(pattern = "meta", x = sheet, ignore.case = TRUE)) {
       skip = 30
     }
+    # selected file is GPs
+    if(grepl(pattern = "jts0405", x = jts_tables_selected$csv_file, ignore.case = TRUE)) {
+      skip = 7
+    }
   } else if(grepl(pattern = "01|02|03", x = type)) {
     skip = 7
   } else {
     skip = 0
   }
+  # browser()
   suppressMessages({
     jts_data = readr::read_csv(download_url, skip = skip)
   })
