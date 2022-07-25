@@ -5,7 +5,7 @@ Authors@R: c(
     person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5679-6536")),
     person("Federico", "Botta", role = "aut",
-           comment = c(ORCID = "..."))
+           comment = c(ORCID = "0000-0002-5681-4535"))
   )
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
