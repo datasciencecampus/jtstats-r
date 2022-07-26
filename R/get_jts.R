@@ -128,6 +128,15 @@ lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "", file
     tables_selected = tables_selected[match_file, ]
     return(tables_selected)
   }
+  if(code != "") {
+    match_code = grepl(code, x = tables_selected$table_code, ignore.case = TRUE)
+    tables_selected = tables_selected[match_code, ]
+    if(nrow(tables_selected) == 1) {
+      return(tables_selected)
+    }
+    message("\nMatching tables by code (", type, ", ", purpose, ", ", code, "):\n",
+            paste0(unique(tables_selected$table_code), collapse = "\n"))
+  }
   if(type != "") {
     match_type = grepl(type, x = tables_selected$table_type, ignore.case = TRUE)
     tables_selected = tables_selected[match_type, ]
@@ -139,12 +148,6 @@ lookup_jts_table = function(type = "", purpose = "", sheet = "", code = "", file
     tables_selected = tables_selected[match_purposes, ]
     message("\nMatching tables by purpose (", type, "):\n",
             paste0(unique(tables_selected$table_title), collapse = "\n"))
-  }
-  if(code != "") {
-    match_code = grepl(code, x = tables_selected$table_code, ignore.case = TRUE)
-    tables_selected = tables_selected[match_code, ]
-    message("\nMatching tables by code (", type, ", ", purpose, ", ", code, "):\n",
-            paste0(unique(tables_selected$table_code), collapse = "\n"))
   }
   if(sheet != "") {
     match_sheet = grepl(sheet, x = tables_selected$csv_file, ignore.case = TRUE)
