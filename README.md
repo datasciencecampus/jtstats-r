@@ -22,6 +22,9 @@ You can install the development version of jtstats from
 ``` r
 # install.packages("remotes")
 remotes::install_github("datasciencecampus/jtstats-r")
+# # Or for local development, uncomment the following::
+# remotes::install_local(".")
+# devtools::load_all() # or Ctlr+Shift+B
 ```
 
 ## Usage
@@ -89,14 +92,6 @@ jts04_gps = lookup_jts_table(type = "jts04", purpose = "GPs")
 #> 
 #> Matching tables by purpose (jts04):
 #> Travel time, destination and origin indicators for GPs by mode of travel and local authority, England
-#> 
-#> Matching tables by sheet (jts04, GPs, ):
-#> jts0405-2014.csv
-#> jts0405-2015_REVISED.csv
-#> jts0405-2016.csv
-#> jts0405-2017.csv
-#> jts0405-2019.csv
-#> jts0405-LA_Metadata.csv
 jts04_gps$table_title
 #> [1] "Travel time, destination and origin indicators for GPs by mode of travel and local authority, England"
 #> [2] "Travel time, destination and origin indicators for GPs by mode of travel and local authority, England"
@@ -148,8 +143,36 @@ jts_las_gps_2019 = get_jts(type = "jts04", purpose = "GPs", sheet = 2019)
 #> Matching tables by sheet (jts04, GPs, 2019):
 #> jts0405-2019.csv
 names(jts_las_gps_2017)
-#>  [1] "GP001" "GP002" "GP003" "GP004" "GP101" "GP102" "GP103" "GP104" "GP105"
-#> [10] "GP106" "GP107" "GP108" "GP109" "GP110" "GP111" "GP112" "GP113" "GP114"
-#> [19] "GP115" "GP116" "GP117" "GP118" "GP119" "GP120" "GP121" "GP122" "GP123"
-#> [28] "GP124" "GP125" "GP126" "GP127"
+#>  [1] "Region"     "LA_Code"    "LA_Name"    "GP_pop"     "GPPTt"     
+#>  [6] "GPPT15n"    "GPPT30n"    "GPPT45n"    "GPPT60n"    "GPPT15pct" 
+#> [11] "GPPT30pct"  "GPPT45pct"  "GPPT60pct"  "GPCyct"     "GPCyc15n"  
+#> [16] "GPCyc30n"   "GPCyc45n"   "GPCyc60n"   "GPCyc15pct" "GPCyc30pct"
+#> [21] "GPCyc45pct" "GPCyc60pct" "GPCart"     "GPCar15n"   "GPCar30n"  
+#> [26] "GPCar45n"   "GPCar60n"   "GPCar15pct" "GPCar30pct" "GPCar45pct"
+#> [31] "GPCar60pct"
 ```
+
+``` r
+jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
+#> Matching tables by type (jts04):
+#> Travel time, destination and origin indicators for employment centres by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for primary schools by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for secondary schools by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for further education by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for GPs by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for hospitals by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for food stores by mode of travel and local authority, England
+#> Travel time, destination and origin indicators for town centres by mode of travel and local authority, England
+#> Travel time, destination and origin indicators to Pharmacy by cycle and car, local authority, England
+#> 
+#> Matching tables by purpose (jts04):
+#> Travel time, destination and origin indicators for GPs by mode of travel and local authority, England
+#> 
+#> Matching tables by sheet (jts04, GPs, 2017):
+#> jts0405-2017.csv
+jts_geo %>% 
+  select(GPPT15pct) %>% 
+  plot()
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />

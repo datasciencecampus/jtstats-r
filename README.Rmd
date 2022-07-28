@@ -31,6 +31,9 @@ You can install the development version of jtstats from [GitHub](https://github.
 ``` r
 # install.packages("remotes")
 remotes::install_github("datasciencecampus/jtstats-r")
+# # Or for local development, uncomment the following::
+# remotes::install_local(".")
+# devtools::load_all() # or Ctlr+Shift+B
 ```
 
 ## Usage
@@ -79,4 +82,9 @@ jts_las_gps_2019 = get_jts(type = "jts04", purpose = "GPs", sheet = 2019)
 names(jts_las_gps_2017)
 ```
 
-
+```{r}
+jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
+jts_geo %>% 
+  select(GPPT15pct) %>% 
+  plot()
+```
