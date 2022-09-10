@@ -4,7 +4,7 @@ output: github_document
 
 ```{r}
 library(jtstats)
-jts0101_geo = get_jts(code = "JTS0101")
-jts0101_geo
+jts0101 = get_jts(code = "JTS0101", sheet = "JTS0101")
+jts0101
 ```
 
