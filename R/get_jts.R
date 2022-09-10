@@ -34,6 +34,7 @@
 #'   travel, rural and urban areas: England).
 #' @param base_url Where to get the data from
 #' @param geo Return geographic data, as sf objects? FALSE by default.
+#' @return A data frame containing journey time statistics
 #' @export
 #' @examples
 #' jts_tables

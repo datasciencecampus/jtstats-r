@@ -56,6 +56,9 @@ travel, rural and urban areas: England).}
 
 \item{geo}{Return geographic data, as sf objects? FALSE by default.}
 }
+\value{
+A data frame containing journey time statistics
+}
 \description{
 Get JTS data
 }
