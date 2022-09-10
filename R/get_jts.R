@@ -79,9 +79,8 @@ get_jts = function(
     base_url = "https://github.com/ITSLeeds/jts/releases/download/2/",
     geo = FALSE
     ) {
-  browser()
-  # Could add other acceptable values:
-  valid_sheet = as.character(sheet) %in% c(as.character(jts_params$year), "meta")
+  # Check for acceptable values:
+  valid_sheet = as.character(sheet) %in% c(as.character(jts_params$year), "meta", "JTS0101")
   if(!valid_sheet) {
     warning("May be invalid sheet (should be a year or text string matching a sheet")
   }

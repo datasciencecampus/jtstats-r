@@ -2,12 +2,6 @@
 ``` r
 library(jtstats)
 jts0101 = get_jts(code = "JTS0101", sheet = "JTS0101")
-```
-
-    ## Warning in get_jts(code = "JTS0101", sheet = "JTS0101"): May be invalid sheet
-    ## (should be a year or text string matching a sheet
-
-``` r
 jts0101
 ```
 

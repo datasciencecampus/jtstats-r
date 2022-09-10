@@ -60,6 +60,9 @@ travel, rural and urban areas: England).}
 Get JTS data
 }
 \examples{
+jts_tables
+# If you already know the code you want:
+jts0101_data = get_jts(code = "JTS0101", sheet = "JTS0101")
 employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
 dim(employment_2017)
 names(employment_2017)
@@ -83,9 +86,10 @@ head(jts_tables$csv_file)
 get_jts(file_name = "jts0102-2014")
 
 # Get geo data
-geo = get_jts(type = "jts04", purpose = "employment", sheet = 2017, geo = TRUE)
-class(geo)
-plot(geo["100EmpCyc15pct"])
+employment_2017_geo = get_jts(type = "jts04", purpose = "employment",
+  sheet = 2017, geo = TRUE)
+class(employment_2017_geo)
+plot(employment_2017_geo["100EmpCyc15pct"])
 # LSOA data, commented because it's slow
 # lsoa_geo = get_jts(type = "jts05", purpose = "employment", sheet = 2017, geo = TRUE)
 # class(lsoa_geo)
