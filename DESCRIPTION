@@ -7,7 +7,11 @@ Authors@R: c(
     person("Federico", "Botta", role = "aut",
            comment = c(ORCID = "0000-0002-5681-4535"))
   )
-Description: What the package does (one paragraph).
+Description: This package downloads and imports data from the
+   Journey time statistics: data tables (JTS), provided by the UK's
+   Department for Transport.
+   See <https://www.gov.uk/government/statistical-data-sets/journey-time-statistics-data-tables-jts>
+   for details of the dataset.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
