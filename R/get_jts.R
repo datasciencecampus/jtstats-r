@@ -38,7 +38,7 @@
 #' @examples
 #' jts_tables
 #' # If you already know the code you want:
-#' jts0101_data = get_jts(code = "JTS0101")
+#' jts0101_data = get_jts(code = "JTS0101", sheet = "JTS0101")
 #' employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
 #' dim(employment_2017)
 #' names(employment_2017)
@@ -79,6 +79,7 @@ get_jts = function(
     base_url = "https://github.com/ITSLeeds/jts/releases/download/2/",
     geo = FALSE
     ) {
+  browser()
   # Could add other acceptable values:
   valid_sheet = as.character(sheet) %in% c(as.character(jts_params$year), "meta")
   if(!valid_sheet) {
