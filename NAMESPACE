@@ -3,5 +3,4 @@
 export(get_boundaries)
 export(get_jts)
 export(get_jts_metadata)
-export(jts_app)
 export(lookup_jts_table)
