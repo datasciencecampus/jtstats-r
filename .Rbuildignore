@@ -13,3 +13,5 @@
 ^packages$
 ^test$
 ^app$
+^CRAN-SUBMISSION$
+^cran-comments\.md$
