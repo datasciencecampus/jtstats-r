@@ -65,6 +65,7 @@ Get JTS data
 \examples{
 jts_tables
 # If you already know the code you want:
+\dontrun{
 jts0101_data = get_jts(code = "JTS0101", sheet = "JTS0101")
 employment_2017 = get_jts(type = "jts04", purpose = "employment", sheet = 2017)
 dim(employment_2017)
@@ -97,4 +98,5 @@ plot(employment_2017_geo["100EmpCyc15pct"])
 # lsoa_geo = get_jts(type = "jts05", purpose = "employment", sheet = 2017, geo = TRUE)
 # class(lsoa_geo)
 # plot(lsoa_geo[1:99, 12:15])
+}
 }
