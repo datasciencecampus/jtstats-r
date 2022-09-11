@@ -1,6 +1,6 @@
 Package: jtstats
 Title: Import Journey Statistics Data
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: c(
     person("Robin", "Lovelace", , "rob00x@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5679-6536")),
