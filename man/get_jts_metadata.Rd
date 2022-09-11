@@ -41,6 +41,9 @@ text string to identify a particular sheet (e.g. "meta" to get metadata tables)}
 
 \item{base_url}{Where to get the data from}
 }
+\value{
+A data frame containing metadata for JTS data
+}
 \description{
 Get metadata associated with a particular JTS table
 }

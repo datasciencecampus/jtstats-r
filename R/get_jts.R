@@ -116,6 +116,7 @@ get_jts = function(
 #' Find specific jts table and sheet
 #'
 #' @inheritParams get_jts
+#' @return A data frame containing a subset of matching jts_tables
 #' @export
 #' @examples
 #' lookup_jts_table()
@@ -178,6 +179,7 @@ clean_jts = function(d) {
 #' Get metadata associated with a particular JTS table
 #'
 #' @inheritParams get_jts
+#' @return A data frame containing metadata for JTS data
 #' @export
 #' @examples
 #' get_jts_metadata(type = "jts05", purpose = "employment")
@@ -217,7 +219,7 @@ utils::globalVariables(c("jts_tables", "jts_params"))
 #' jts_tables
 "jts_tables"
 
-#' JTS table paramets
+#' JTS table parameters
 #'
 #' The complete list of JTS tables represented as named sheets from the ODS files
 #' @examples

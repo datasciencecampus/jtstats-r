@@ -50,6 +50,9 @@ refers to the sheet 2014 in the JTS spreadsheet JTS0102
 (Average minimum travel time to reach the nearest key services by mode of
 travel, rural and urban areas: England).}
 }
+\value{
+A data frame containing a subset of matching jts_tables
+}
 \description{
 Find specific jts table and sheet
 }

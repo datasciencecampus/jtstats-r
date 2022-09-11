@@ -3,7 +3,7 @@
 \docType{data}
 \name{jts_params}
 \alias{jts_params}
-\title{JTS table paramets}
+\title{JTS table parameters}
 \format{
 An object of class \code{list} of length 5.
 }
