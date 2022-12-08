@@ -55,6 +55,7 @@ To see what tables are available you can browse [the JTS website on gov.uk](http
 Alternatively, you can check the datasets from within R:
 
 ```{r example}
+dim(jts_tables)
 head(jts_tables)
 ```
 
@@ -84,6 +85,9 @@ names(jts_las_gps_2017)
 
 ```{r}
 jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
+names(jts_geo)
+
+
 jts_geo %>% 
   select(GPPT15pct) %>% 
   plot()
