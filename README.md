@@ -199,17 +199,14 @@ jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
 #> Matching tables by sheet (jts04, GPs, 2017):
 #> jts0405-2017.csv
 names(jts_geo)
-#>  [1] "OBJECTID"      "lad11cd"       "LAD21NM"       "LAD21NMW"     
-#>  [5] "BNG_E"         "BNG_N"         "LONG"          "LAT"          
-#>  [9] "Shape__Area"   "Shape__Length" "GlobalID"      "geometry"     
-#> [13] "Region"        "LA_Name"       "GP_pop"        "GPPTt"        
-#> [17] "GPPT15n"       "GPPT30n"       "GPPT45n"       "GPPT60n"      
-#> [21] "GPPT15pct"     "GPPT30pct"     "GPPT45pct"     "GPPT60pct"    
-#> [25] "GPCyct"        "GPCyc15n"      "GPCyc30n"      "GPCyc45n"     
-#> [29] "GPCyc60n"      "GPCyc15pct"    "GPCyc30pct"    "GPCyc45pct"   
-#> [33] "GPCyc60pct"    "GPCart"        "GPCar15n"      "GPCar30n"     
-#> [37] "GPCar45n"      "GPCar60n"      "GPCar15pct"    "GPCar30pct"   
-#> [41] "GPCar45pct"    "GPCar60pct"
+#>  [1] "OBJECTID"     "lad11cd"      "lad11cdo"     "lad11nm"      "lad11nmw"    
+#>  [6] "GlobalID"     "SHAPE_Length" "SHAPE_Area"   "geometry"     "Region"      
+#> [11] "LA_Name"      "GP_pop"       "GPPTt"        "GPPT15n"      "GPPT30n"     
+#> [16] "GPPT45n"      "GPPT60n"      "GPPT15pct"    "GPPT30pct"    "GPPT45pct"   
+#> [21] "GPPT60pct"    "GPCyct"       "GPCyc15n"     "GPCyc30n"     "GPCyc45n"    
+#> [26] "GPCyc60n"     "GPCyc15pct"   "GPCyc30pct"   "GPCyc45pct"   "GPCyc60pct"  
+#> [31] "GPCart"       "GPCar15n"     "GPCar30n"     "GPCar45n"     "GPCar60n"    
+#> [36] "GPCar15pct"   "GPCar30pct"   "GPCar45pct"   "GPCar60pct"
 
 
 jts_geo %>% 

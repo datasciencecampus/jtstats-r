@@ -22,7 +22,8 @@ get_boundaries = function(type = "la") {
   } else if(type == "la") {
     # u = "https://opendata.arcgis.com/datasets/3b374840ce1b4160b85b8146b610cd0c_0.geojson" # May 2020 generalised 20m (BGC)
     # u = "https://opendata.arcgis.com/datasets/0c09b7cde8b44c4ab6e2a1e47a91e400_0.geojson" # December 2011 EW generalised 20m (BGC)
-    u = "https://github.com/ITSLeeds/pct/releases/download/v0.9.7/Local_Authority_Districts_.December_2021._UK_BUC.geojson"
+    # u = "https://github.com/ITSLeeds/pct/releases/download/v0.9.7/Local_Authority_Districts_.December_2021._UK_BUC.geojson"
+    u = "https://github.com/ITSLeeds/pct/releases/download/v0.9.7/Local_Authority_Districts_.December_2011._GB_BGC.geojson"
   }
   res = sf::read_sf(u)
   names(res) = gsub(pattern = "LAD21CD", replacement = "lad11cd", x = names(res))
