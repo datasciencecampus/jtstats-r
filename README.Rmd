@@ -74,21 +74,10 @@ jts04_gps$table_title
 jts04_gps$sheet
 ```
 
-As an example, our packages allow easy retrieval and mapping of data on the average journey time to employment centres (with 100 to 499 jobs) by public transport simply by running the following lines of code:
+As an example, our packages allow easy retrieval of data on the average journey time to employment centres (with 100 to 499 jobs) by public transport simply by running the following lines of code:
 
 ```{r}
-jts_df = (type_code="jts05", spec="employment", sheet=2019, geo=True)
-jts.choropleth_map(
-    jts_df,
-    "500EmpPTt",
-    title="Travel time to jobs by public transport",
-    cblabel="Average travel time in minutes",
-    logscale=True,
-    cbticks=[1, 10, 100],
-    cbticklabels=["1", "10", "100"],
-    linewidth=0.001,
-)
-
+jts_df = get_jts(type = "jts05", purpose = "employment", sheet = 2019)
 ```
 
 

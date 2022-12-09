@@ -45,6 +45,8 @@ gov.uk](https://www.gov.uk/government/statistical-data-sets/journey-time-statist
 Alternatively, you can check the datasets from within R:
 
 ``` r
+dim(jts_tables)
+#> [1] 192   6
 head(jts_tables)
 #> # A tibble: 6 × 6
 #>   table_type                            table_ti…¹ table…² sheet csv_f…³ table…⁴
@@ -100,6 +102,34 @@ jts04_gps$table_title
 jts04_gps$sheet
 #> [1] "2014"         "2015_REVISED" "2016"         "2017"         "2019"        
 #> [6] "LA_Metadata"
+```
+
+As an example, our packages allow easy retrieval of data on the average
+journey time to employment centres (with 100 to 499 jobs) by public
+transport simply by running the following lines of code:
+
+``` r
+jts_df = get_jts(type = "jts05", purpose = "employment", sheet = 2019)
+#> Matching tables by type (jts05):
+#> Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for Primary schools by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for Secondary schools by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for Further education by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for GPs by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for Hospitals by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for Food stores by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators for town centres by mode of travel, Lower Super Output Area (LSOA), England
+#> Travel time, destination and origin indicators to Pharmacies by cycle and car, Lower Super Output Area (LSOA), England
+#> 
+#> Matching tables by purpose (jts05):
+#> Travel time, destination and origin indicators for Employment centres by mode of travel, Lower Super Output Area (LSOA), England
+#> 
+#> Matching tables by sheet (jts05, employment, 2019):
+#> jts0501-2019_REVISED.csv
+#> Warning: One or more parsing issues, call `problems()` on your data frame for details,
+#> e.g.:
+#>   dat <- vroom(...)
+#>   problems(dat)
 ```
 
 Imagine you’re interested in how average travel time to GP services
@@ -168,9 +198,23 @@ jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
 #> 
 #> Matching tables by sheet (jts04, GPs, 2017):
 #> jts0405-2017.csv
+names(jts_geo)
+#>  [1] "OBJECTID"      "lad11cd"       "LAD21NM"       "LAD21NMW"     
+#>  [5] "BNG_E"         "BNG_N"         "LONG"          "LAT"          
+#>  [9] "Shape__Area"   "Shape__Length" "GlobalID"      "geometry"     
+#> [13] "Region"        "LA_Name"       "GP_pop"        "GPPTt"        
+#> [17] "GPPT15n"       "GPPT30n"       "GPPT45n"       "GPPT60n"      
+#> [21] "GPPT15pct"     "GPPT30pct"     "GPPT45pct"     "GPPT60pct"    
+#> [25] "GPCyct"        "GPCyc15n"      "GPCyc30n"      "GPCyc45n"     
+#> [29] "GPCyc60n"      "GPCyc15pct"    "GPCyc30pct"    "GPCyc45pct"   
+#> [33] "GPCyc60pct"    "GPCart"        "GPCar15n"      "GPCar30n"     
+#> [37] "GPCar45n"      "GPCar60n"      "GPCar15pct"    "GPCar30pct"   
+#> [41] "GPCar45pct"    "GPCar60pct"
+
+
 jts_geo %>% 
   select(GPPT15pct) %>% 
   plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
