@@ -19,7 +19,7 @@ get_boundaries = function(type = "la") {
     u = "https://opendata.arcgis.com/datasets/cc5941be78a8458393a03c69518b2bf9_0.geojson" # April 2020 generalised 20m (BGC)
   } else if(type == "la") {
     # u = "https://opendata.arcgis.com/datasets/3b374840ce1b4160b85b8146b610cd0c_0.geojson" # May 2020 generalised 20m (BGC)
-    u = "https://opendata.arcgis.com/datasets/0c09b7cde8b44c4ab6e2a1e47a91e400_0.geojson" # December 2011 EW generalised 20m (BGC)
+    u = "https://github.com/ITSLeeds/pct/releases/download/v0.9.7/LSOA_.Dec_2011._Boundaries_Super_Generalised_Clipped_.BSC._EW_V3.geojson" # December 2011 EW generalised 20m (BGC)
   }
   res = sf::read_sf(u)
   res
