@@ -90,7 +90,7 @@ jts_las_gps_2019 = get_jts(type = "jts04", purpose = "GPs", sheet = 2019)
 names(jts_las_gps_2017)
 ```
 
-```{r}
+```{r jtsgeo}
 jts_geo = get_jts(type = "jts04", purpose = "GPs", sheet = 2017, geo = TRUE)
 names(jts_geo)
 

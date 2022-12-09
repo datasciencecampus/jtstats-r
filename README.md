@@ -217,4 +217,4 @@ jts_geo %>%
   plot()
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
+<img src="man/figures/README-jtsgeo-1.png" width="100%" />
