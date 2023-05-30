@@ -1,12 +1,16 @@
 
 <!-- badges: start -->
+
 <!-- [![R-CMD-check](https://github.com/datasciencecampus/jtstats-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/datasciencecampus/jtstats-r/actions/workflows/R-CMD-check.yaml) -->
+
 <!-- badges: end -->
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # jtstats
 
 <!-- badges: start -->
+
 <!-- badges: end -->
 
 The goal of jtstats is to enable easy import of the Department for
@@ -49,16 +53,14 @@ dim(jts_tables)
 #> [1] 192   6
 head(jts_tables)
 #> # A tibble: 6 × 6
-#>   table_type                            table_ti…¹ table…² sheet csv_f…³ table…⁴
-#>   <chr>                                 <chr>      <chr>   <chr> <chr>   <chr>  
-#> 1 Journey times to key services (JTS01) Average m… jts0101 JTS0… jts010… https:…
-#> 2 Journey times to key services (JTS01) Average m… jts0102 2014  jts010… https:…
-#> 3 Journey times to key services (JTS01) Average m… jts0102 2015  jts010… https:…
-#> 4 Journey times to key services (JTS01) Average m… jts0102 2016  jts010… https:…
-#> 5 Journey times to key services (JTS01) Average m… jts0102 2017  jts010… https:…
-#> 6 Journey times to key services (JTS01) Average m… jts0102 2019  jts010… https:…
-#> # … with abbreviated variable names ¹​table_title, ²​table_code, ³​csv_file,
-#> #   ⁴​table_url
+#>   table_type                     table_title table_code sheet csv_file table_url
+#>   <chr>                          <chr>       <chr>      <chr> <chr>    <chr>    
+#> 1 Journey times to key services… Average mi… jts0101    JTS0… jts0101… https://…
+#> 2 Journey times to key services… Average mi… jts0102    2014  jts0102… https://…
+#> 3 Journey times to key services… Average mi… jts0102    2015  jts0102… https://…
+#> 4 Journey times to key services… Average mi… jts0102    2016  jts0102… https://…
+#> 5 Journey times to key services… Average mi… jts0102    2017  jts0102… https://…
+#> 6 Journey times to key services… Average mi… jts0102    2019  jts0102… https://…
 ```
 
 As the above output shows, there are 192 separate tables that constitute
@@ -215,3 +217,22 @@ jts_geo %>%
 ```
 
 <img src="man/figures/README-jtsgeo-1.png" width="100%" />
+
+We can make a slightly more sophisticated plot with `tmap` as follows:
+
+``` r
+library(tmap)
+uk = rnaturalearth::ne_countries(country = "United Kingdom", returnclass = "sf", scale = "medium")
+ie = rnaturalearth::ne_countries(country = "Ireland", returnclass = "sf", scale = "medium")
+
+
+tm_shape(uk, bbox = sf::st_bbox(jts_geo)) +
+  tm_polygons() +
+  tm_shape(ie) +
+  tm_polygons() +
+  tm_shape(jts_geo) +
+  tm_polygons("GPPT15pct", palette = "Blues", title = "% people who live\nwithin 15 minutes\nof GP by public transport") +
+  tm_layout(legend.position = c("right", "top"))
+```
+
+<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
