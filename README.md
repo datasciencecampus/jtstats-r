@@ -1,16 +1,12 @@
 
 <!-- badges: start -->
-
 <!-- [![R-CMD-check](https://github.com/datasciencecampus/jtstats-r/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/datasciencecampus/jtstats-r/actions/workflows/R-CMD-check.yaml) -->
-
 <!-- badges: end -->
-
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # jtstats
 
 <!-- badges: start -->
-
 <!-- badges: end -->
 
 The goal of jtstats is to enable easy import of the Department for
@@ -222,6 +218,11 @@ We can make a slightly more sophisticated plot with `tmap` as follows:
 
 ``` r
 library(tmap)
+#> 
+#> Attaching package: 'tmap'
+#> The following object is masked from 'package:datasets':
+#> 
+#>     rivers
 uk = rnaturalearth::ne_countries(country = "United Kingdom", returnclass = "sf", scale = "medium")
 ie = rnaturalearth::ne_countries(country = "Ireland", returnclass = "sf", scale = "medium")
 
@@ -233,6 +234,7 @@ tm_shape(uk, bbox = sf::st_bbox(jts_geo)) +
   tm_shape(jts_geo) +
   tm_polygons("GPPT15pct", palette = "Blues", title = "% people who live\nwithin 15 minutes\nof GP by public transport") +
   tm_layout(legend.position = c("right", "top"))
+#> tm_polygons: Deprecated tmap v3 code detected. Code translated to v4
 ```
 
 <img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />

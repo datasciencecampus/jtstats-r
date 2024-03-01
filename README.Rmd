@@ -116,5 +116,3 @@ tm_shape(uk, bbox = sf::st_bbox(jts_geo)) +
   tm_polygons("GPPT15pct", palette = "Blues", title = "% people who live\nwithin 15 minutes\nof GP by public transport") +
   tm_layout(legend.position = c("right", "top"))
 ```
-
-```{r}
